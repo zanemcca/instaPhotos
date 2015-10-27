@@ -1,0 +1,27 @@
+{
+  "name": "instaphotos",
+  "version": "1.0.0",
+  "description": "Resizes and otherwise modifies images for InstaNews, Inc.",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^1.5.0",
+    "gm": "^1.21.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-zip": "^0.17.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/instanews/instaPhotos.git"
+  },
+  "author": "Zane McCaig",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/instanews/instaPhotos/issues"
+  },
+  "homepage": "https://github.com/instanews/instaPhotos"
+}
