@@ -62,15 +62,15 @@ exports.handler = function(event, context) {
       prefix: 'L'
     },
     {
-      max: 640,
+      max: 720,
       prefix: 'M'
     },
     {
-      max: 380,
+      max: 640,
       prefix: 'S'
     },
     {
-      max: 260,
+      max: 480,
       prefix: 'XS'
     },
     {
