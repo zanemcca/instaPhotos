@@ -154,6 +154,7 @@ exports.handler = function(event, context) {
                   Bucket: dstBucket,
                   Key: dstKey,
                   Body: buffer,
+                  CacheControl: 'no-transform,public,max-age=86400',
                   ContentType: response.ContentType
                 }, function (err) {
                   console.log(
