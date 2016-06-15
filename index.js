@@ -93,6 +93,10 @@ exports.handler = function(event, context) {
           var completed = 0;
           var errors = [];
 
+          if(err) {
+            errors.push(err);
+          }
+
           var results = [];
           var done = function (res) {
             completed++;
@@ -154,7 +158,7 @@ exports.handler = function(event, context) {
                   Bucket: dstBucket,
                   Key: dstKey,
                   Body: buffer,
-                  CacheControl: 'no-transform,public,max-age=86400',
+                  CacheControl: 'no-transform,public,max-age=31536000',
                   ContentType: response.ContentType
                 }, function (err) {
                   console.log(
@@ -201,6 +205,7 @@ exports.handler = function(event, context) {
             'Successfully resized ' + srcBucket + '/' + srcKey +
               ' and uploaded to ' + dstBucket
           );
+          console.dir(params);
           console.log(data);           // successful response
           context.succeed('Successful completion of imageTranscoding on ' + srcKey);
         }
