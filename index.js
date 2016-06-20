@@ -14,6 +14,7 @@ exports.handler = function(event, context) {
 
   var srcBucket = '';
   var srcKey = '';  
+  var rotate = 0;
 
   if(event.Records && event.Records.length) {
     srcBucket = event.Records[0].s3.bucket.name;
@@ -22,6 +23,10 @@ exports.handler = function(event, context) {
   } else {
     srcBucket = event.container;
     srcKey = event.name;
+    if(event.rotate) {
+      rotate = event.rotate;
+      console.log('Rotating image by ' + rotate + 'deg');
+    }
   }
 
   var dstBucket = srcBucket.slice(0, srcBucket.lastIndexOf('-in'));
@@ -119,6 +124,12 @@ exports.handler = function(event, context) {
             self = self.quality(quality);
           }
 
+          self = self.noProfile();
+
+          if(rotate) {
+            self = self.rotate('black', rotate);
+          }
+
           sizes.forEach(function (newSize) {
             var max = newSize.max;
             var dstKey = newSize.prefix + '-' + srcKey;
@@ -145,8 +156,14 @@ exports.handler = function(event, context) {
               prefix: newSize.prefix 
             };
 
+            if(rotate % 180) {
+              var tmpHeight = result.width;
+              result.width = result.height;
+              result.height = tmpHeight;
+            }
+
             // Transform the image buffer in memory.
-            self.resize(width, height)
+            self.resize(result.width, result.height)
             .toBuffer(imageType, function(err, buffer) {
               if (err) {
                 console.error(err);
